@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendation Website</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- For Icons -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #1f4b99;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo img {
+            width: 60px;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .navbar-menu li {
+            display: inline;
+        }
+
+        .navbar-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-menu a:hover {
+            color: #ffd700;
+        }
+
+        .navbar-auth a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 1rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-auth a:hover {
+            color: #ffd700;
+        }
+
+        #login-link,
+        #register-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        #login-link:hover,
+        #register-link:hover {
+            color: #f0f0f0;
+        }
+
+        /* User Icon and Username Styles */
+        .user-icon {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .username {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            justify-content: space-around;
+            padding: 3rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            border: 2px solid #1f4b99;
+            padding: 2rem;
+            width: 23%;
+            margin: 1rem;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: #1f4b99;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            margin-top: 0.5rem;
+            color: #1f4b99;
+        }
+
+        .card p {
+            color: #555;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:nth-child(1) {
+            background-color: #ffedcc;
+        }
+
+        .card:nth-child(2) {
+            background-color: #d9e2ff;
+        }
+
+        .card:nth-child(3) {
+            background-color: #e6ffe6;
+        }
+
+        .card:nth-child(4) {
+            background-color: #ffe6e6;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #1f4b99;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Animation */
+        @keyframes slideIn {
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .card {
+            animation: slideIn 0.8s forwards;
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="/chatbot">Guidance</a></li>
+            <li><a href="/user/courses">Courses</a></li>
+            <li><a href="/user/jobs">Jobs</a></li>
+            <li><a href="#preparation">Preparation</a></li>
+        </ul>
+        <div class="navbar-auth">
+            <% if (locals.user) { %>
+                <a href="/profile" class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <a class="username" href ="/profile">
+                    <%= user.user_name %> <!-- Display the user's name -->
+                </a>
+                <a href="/user/logout" id="logout-link">Logout</a>
+                <% } else { %>
+                    <a href="/login" id="login-link">Login</a>
+                    <a href="/signup" id="register-link">Register</a>
+                    <% } %>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="card" id="card1">
+            <div class="card-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <h2>Guidance</h2>
+            <p>Get personalized career guidance to help you make the right decisions.</p>
+        </div>
+        <div class="card" id="card2">
+            <div class="card-icon">
+                <i class="fas fa-book-reader"></i>
+            </div>
+            <h2>Courses</h2>
+            <p>Explore courses that match your skills and boost your career.</p>
+        </div>
+        <div class="card" id="card3">
+            <div class="card-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <h2>Jobs</h2>
+            <p>Find job opportunities tailored to your profile.</p>
+        </div>
+        <div class="card" id="card4">
+            <div class="card-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h2>Preparation</h2>
+            <p>Access resources to prepare for your next job interview.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Contact us: contact@jobrecommendation.com | +1 234 567 890</p>
+        <p>© 2024 Job Recommendation Website. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

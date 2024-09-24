@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Courses</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #1f4b99;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .navbar-logo img {
+            width: 60px;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar-menu li {
+            display: inline;
+        }
+
+        .navbar-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-menu a:hover {
+            color: #ffd700;
+        }
+
+        .user-info {
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* Container and Main Content Styles */
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f4b99;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 2px solid #1f4b99;
+            padding-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #1f4b99;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .card-container {
+                justify-content: space-between;
+            }
+
+            .card {
+                width: calc(50% - 1rem);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .card {
+                width: calc(33.333% - 1rem);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/user/courses">Courses</a></li>
+        </ul>
+        <div class="user-info">
+            <span>User: <%= locals.user.user_name %></span> |
+            <span>Skills: <%= locals.user.skills %></span> |
+            <span>Job: <%= locals.user.job %></span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Available Courses</h1>
+        <div class="tagline">
+            Hey <%= locals.user.user_name %>, these are some courses according to your lacking skills for your job as a
+                <%= locals.user.job %>.
+        </div>
+        <% if (locals.courses.length> 0) { %>
+            <div class="card-container">
+                <% locals.courses.forEach(course=> { %>
+                    <div class="card">
+                        <h2>
+                            <%= course.title %>
+                        </h2>
+                        <p>
+                            <%= course.description %>
+                        </p>
+                    </div>
+                    <% }) %>
+            </div>
+            <% } else { %>
+                <p style="text-align: center; color: #999;">No courses available at the moment.</p>
+                <% } %>
+    </div>
+</body>
+
+</html>

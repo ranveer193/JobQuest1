@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #1f4b99;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+
+        .navbar .user {
+            margin-right: 1rem;
+        }
+
+        /* Profile Container Styles */
+        .profile-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin-top: 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1f4b99;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .profile-form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .profile-form input[type="text"],
+        .profile-form input[type="email"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .profile-form input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        .update-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1f4b99;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .success-message {
+            color: green;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="/">Home</a>
+        </div>
+        <div class="nav-right">
+            <% if (locals.user) { %>
+                <span class="user">Welcome, <%= locals.user.user_name %></span>
+                <a href="/user/logout">Logout</a>
+                <% } else { %>
+                    <a href="/user/login">Login</a>
+                    <a href="/user/signup">Register</a>
+                    <% } %>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <h2>User Profile</h2>
+
+        <% if (locals.msg) { %>
+            <div class="success-message">
+                <%= locals.msg %>
+            </div>
+            <% } %>
+
+                <form action="/user/profile/update" method="POST" class="profile-form">
+                    <!-- Displaying Known Information -->
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" value="<%= locals.user.user_name %>" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="<%= locals.user.email %>" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone" value="<%= locals.user.mobile_no %>" readonly>
+                    </div>
+
+                    <!-- Editable Fields -->
+                    <div class="form-group">
+                        <label for="dream-job">Dream Job:</label>
+                        <input type="text" id="dream-job" name="job"
+                            placeholder="<%= locals.user.job === 'no job' ? 'Enter your dream job' : locals.user.job %>"
+                            value="<%= locals.user.job === 'no job' ? 'Enter your dream job' : locals.user.job %>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skills">Available Skills:</label>
+                        <input type="text" id="skills" name="skills"
+                            placeholder="<%= locals.user.skills === 'no skills' ? 'Enter your skills' : locals.user.skills %>"
+                            value="<%= locals.user.skills === 'no skills' ? 'Enter your skills' : locals.user.skills %>">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="update-btn">Update Profile</button>
+                </form>
+    </div>
+</body>
+
+</html>
