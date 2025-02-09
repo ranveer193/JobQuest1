@@ -1,4 +1,4 @@
-# JobQuest1
+# JobQuest
 
 ## Overview
 JobQuest is a job portal web application that allows users to search for jobs, track applications, and access chatbot-based career assistance. It is built using **Node.js**, **Express.js**, and **MongoDB** for efficient backend management.
@@ -37,7 +37,7 @@ JobQuest is a job portal web application that allows users to search for jobs, t
    - Add the following:
      ```env
      PORT=3000
-     DATABASE_URL=mongodb://localhost:27017/MyProject
+     DATABASE_URL=mongodb://mongo_user_name/MyProject
      SESSION_SECRET=your_secret_key
      ```
 4. **Start the Application**:
