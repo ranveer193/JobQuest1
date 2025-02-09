@@ -1,6 +1,6 @@
 # JobQuest
 
-![Homepage](https://raw.githubusercontent.com/ranveer193/JobQuest1/main/Homepage.jpg)
+![Homepage](https://raw.githubusercontent.com/ranveer193/JobQuest1/main/Homepage.png)
 
 ## Overview
 JobQuest is a job portal web application that allows users to search for jobs, track applications, and access chatbot-based career assistance. It is built using **Node.js**, **Express.js**, and **MongoDB** for efficient backend management.
