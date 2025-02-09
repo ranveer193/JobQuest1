@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 app.set("view engine", 'ejs');
 app.set("views", path.join(__dirname,"views"));
 
-const { getUser } = require("../MyProject/services/auth");
+const { getUser } = require("../JobQuest1/services/auth");
 
 const { connectMongoose } = require("./connection");   
 
@@ -35,10 +35,10 @@ connectMongoose("mongodb://localhost:27017/MyProject")
     .then(() => console.log("mongoDb Started"))
     .catch((err) => console.log("Error", err));
 
-const staticRoute = require("../MyProject/routes/staticroute");
-const userRoute = require("../MyProject/routes/user");
-const chatbotRoute = require('../MyProject/routes/chatbot');
-const scrapRoute = require("../MyProject/routes/scraping");
+const staticRoute = require("../JobQuest1/routes/staticroute");
+const userRoute = require("../JobQuest1/routes/user");
+const chatbotRoute = require('../JobQuest1/routes/chatbot');
+const scrapRoute = require("../JobQuest1/routes/scraping");
 
 app.use("/", staticRoute);
 app.use('/user', userRoute);
